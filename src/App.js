@@ -26,7 +26,7 @@ function App() {
             setPicture(picUrl);
           }
           setUser(usr);
-          console.log('uuuuuuu..', usr.attributes);
+          console.log('uuuuuuu..', usr?.attributes);
         }
       } catch (e) { console.log('cuurent usr', e); }
 
@@ -82,11 +82,14 @@ function App() {
 
   return (
     <> {user?.username ? (
-      <div className="App">
-        <Container>
+      <div className="App App-header">
+        <Container className='mt-3 section'>
           <Row className="justify-content-md-center">
             <Col sm={4}>
-              <Card style={{ width: '18rem' }}>
+              <Card 
+              bg='info'
+              style={{ width: '18rem' }}
+              >
                 <Card.Img variant="top" src={picture || user.attributes.picture} />
                 <Card.Body>
                   <Card.Title>Hello, {user.username}</Card.Title>
