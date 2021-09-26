@@ -1,0 +1,97 @@
+{
+  "function": {
+    "amplifyotp0d4831950d483195DefineAuthChallenge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "amplifyotpCreateAuthChallenge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "amplifyotpDefineAuthChallenge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "amplifyotpPreSignup": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "amplifyotpVerifyAuthChallengeResponse": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "auth": {
+    "amplifyotp": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "amplifyotpCreateAuthChallenge",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyotpDefineAuthChallenge",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyotpPreSignup",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyotpVerifyAuthChallengeResponse",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        }
+      ],
+      "customAuth": true,
+      "frontendAuthConfig": {
+        "loginMechanisms": [],
+        "signupAttributes": [
+          "PHONE_NUMBER"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "PHONE_NUMBER"
+        ]
+      }
+    }
+  },
+  "storage": {
+    "amplifyimagebucket": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
+    }
+  }
+}

@@ -1,0 +1,102 @@
+{
+    "identityPoolName": "amplifyotp",
+    "allowUnauthenticatedIdentities": false,
+    "resourceNameTruncated": "amplif7e9524a8",
+    "userPoolName": "amplifyotp",
+    "autoVerifiedAttributes": [
+        "phone_number"
+    ],
+    "mfaConfiguration": "OFF",
+    "mfaTypes": [
+        "SMS Text Message"
+    ],
+    "smsAuthenticationMessage": "Your authentication code is {####}",
+    "smsVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "Your verification code",
+    "emailVerificationMessage": "Your verification code is {####}",
+    "defaultPasswordPolicy": false,
+    "passwordPolicyMinLength": 8,
+    "passwordPolicyCharacters": [],
+    "requiredAttributes": [
+        "phone_number"
+    ],
+    "aliasAttributes": [],
+    "userpoolClientGenerateSecret": false,
+    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientWriteAttributes": [
+        "phone_number"
+    ],
+    "userpoolClientReadAttributes": [
+        "phone_number"
+    ],
+    "userpoolClientLambdaRole": "amplif7e9524a8_userpoolclient_lambda_role",
+    "userpoolClientSetAttributes": true,
+    "sharedId": "7e9524a8",
+    "resourceName": "amplifyotp",
+    "authSelections": "identityPoolAndUserPool",
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    },
+    "unauthRoleArn": {
+        "Fn::GetAtt": [
+            "UnauthRole",
+            "Arn"
+        ]
+    },
+    "useDefault": "default",
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "triggers": "{\n  \"CreateAuthChallenge\": [\n    \"custom\"\n  ],\n  \"DefineAuthChallenge\": [\n    \"custom\"\n  ],\n  \"PreSignup\": [\n    \"custom\"\n  ],\n  \"VerifyAuthChallengeResponse\": [\n    \"custom\"\n  ]\n}",
+    "hostedUI": false,
+    "userPoolGroupList": [],
+    "serviceName": "Cognito",
+    "usernameCaseSensitive": false,
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"CreateAuthChallenge\",\n    \"lambdaFunctionName\": \"amplifyotpCreateAuthChallenge\"\n  },\n  {\n    \"triggerType\": \"DefineAuthChallenge\",\n    \"lambdaFunctionName\": \"amplifyotpDefineAuthChallenge\"\n  },\n  {\n    \"triggerType\": \"PreSignUp\",\n    \"lambdaFunctionName\": \"amplifyotpPreSignup\"\n  },\n  {\n    \"triggerType\": \"VerifyAuthChallengeResponse\",\n    \"lambdaFunctionName\": \"amplifyotpVerifyAuthChallengeResponse\"\n  }\n]",
+    "breakCircularDependency": true,
+    "permissions": [],
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "amplifyotpCreateAuthChallenge",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "amplifyotpDefineAuthChallenge",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "amplifyotpPreSignup",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "amplifyotpVerifyAuthChallengeResponse",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
+        }
+    ],
+    "authProviders": []
+}

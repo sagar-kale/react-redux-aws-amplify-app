@@ -1,0 +1,17 @@
+{
+  "trigger": true,
+  "modules": [
+    "custom"
+  ],
+  "parentResource": "amplifyotp",
+  "functionName": "amplifyotpPreSignup",
+  "resourceName": "amplifyotpPreSignup",
+  "parentStack": "auth",
+  "triggerEnvs": "[]",
+  "triggerDir": "C:\\Users\\sagar\\AppData\\Roaming\\npm\\node_modules\\@aws-amplify\\cli\\node_modules\\amplify-category-auth\\provider-utils\\awscloudformation\\triggers\\PreSignup",
+  "triggerTemplate": "PreSignup.json.ejs",
+  "triggerEventPath": "PreSignup.event.json",
+  "roleName": "amplifyotpPreSignup",
+  "skipEdit": true,
+  "enableCors": false
+}
