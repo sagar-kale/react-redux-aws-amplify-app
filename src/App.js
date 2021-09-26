@@ -67,10 +67,9 @@ function App() {
         level: 'private',
         contentType: 'image/png' // contentType is optional
       });
-      if (upPercent === 100) {
-        setUpload(false);
-      }
+
       console.log('upload result...', result);
+      setUpload(false);
     } catch (error) {
       console.log('Error uploading file: ', error);
     }
