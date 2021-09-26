@@ -20,9 +20,11 @@ function App() {
       try {
         const usr = await Auth.currentUserInfo();
         if (usr) {
-          Storage.get('profilePic.jpg', { level: 'private', identityId: usr.id })
-            .then(signedUrl => setPicture(signedUrl))
-            .catch(err => console.log('error fetching profilepic', err));
+          const isProfilePicPresent = usr.attributes['custom:isProfilePicUploaded'] === 'true';
+          if (isProfilePicPresent) {
+            const picUrl = await Storage.get('profilePic.jpg', { level: 'private', identityId: usr.id });
+            setPicture(picUrl);
+          }
           setUser(usr);
           console.log('uuuuuuu..', usr.attributes);
         }
@@ -71,6 +73,8 @@ function App() {
 
       console.log('upload result...', result);
       setUpload(false);
+      const loggeduser = await Auth.currentAuthenticatedUser();
+      await Auth.updateUserAttributes(loggeduser, { 'custom:isProfilePicUploaded': 'true' });
     } catch (error) {
       console.log('Error uploading file: ', error);
     }

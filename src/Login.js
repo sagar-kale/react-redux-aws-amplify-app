@@ -60,7 +60,8 @@ function Login({ updateUserDetails, msgType }) {
             password,
             attributes: {
                 phone_number: number,
-                picture: 'http://placeholder.pics/svg/100px180'
+                picture: 'http://placeholder.pics/svg/100px180',
+                'custom:isProfilePicUploaded': 'false'
             }
         }).then(() => signIn());
         return result;
