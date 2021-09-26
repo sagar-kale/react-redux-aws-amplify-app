@@ -51,11 +51,11 @@ function App() {
 
   const uploadPic = async () => {
     try {
-      const result = await Storage.put('profilePic.jpg', upFile, {
+      const result = await Storage.put(`${user.username}_profilePic.jpg`, upFile, {
         progressCallback(progress) {
-          console.log(`Uploaded: ${progress.loaded}/${progress.total}`);
+          const percent = (progress.loaded / progress.total) * 100;
+          console.log(`Uploaded: ${percent}`);
         },
-        level: 'private',
         contentType: 'image/png' // contentType is optional
       });
       console.log('upload result...', result);
