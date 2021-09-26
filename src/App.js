@@ -1,13 +1,15 @@
 
 import { Auth, Storage } from 'aws-amplify';
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Form, InputGroup, ProgressBar, Row } from 'react-bootstrap';
 import './App.css';
 import Login from './Login';
 
 function App() {
 
   const [user, setUser] = useState(null);
+  const [upload, setUpload] = useState(false);
+  const [upPercent, setPercent] = useState(0);
   const [upFile, setFile] = useState(null);
   const [picture, setPicture] = useState(null);
   const [msgType, setMsgType] = useState('NA');
@@ -16,10 +18,13 @@ function App() {
 
     async function getUser() {
       try {
-        const usr = await Auth.currentUserInfo()
-        setUser(usr);
-        console.log('uuuuuuu..', usr.attributes);
-        setPicture(usr.attributes.picture);
+        const usr = await Auth.currentUserInfo();
+        if (usr) {
+          const signedURL = await Storage.get('profilePic.jpg', { level: 'private', identityId: usr.id });
+          setUser(usr);
+          console.log('uuuuuuu..', usr.attributes);
+          setPicture(signedURL);
+        }
       } catch (e) { console.log('cuurent usr', e); }
 
     }
@@ -51,30 +56,34 @@ function App() {
 
   const uploadPic = async () => {
     try {
-      const result = await Storage.put(`${user.username}_profilePic.jpg`, upFile, {
+      setUpload(true);
+      const result = await Storage.put(`profilePic.jpg`, upFile, {
         progressCallback(progress) {
-          const percent = (progress.loaded / progress.total) * 100;
+          let percent = (progress.loaded / progress.total) * 100;
+          percent = Math.round(percent);
           console.log(`Uploaded: ${percent}`);
+          setPercent(percent);
         },
+        level: 'private',
         contentType: 'image/png' // contentType is optional
       });
+      if (upPercent === 100) {
+        setUpload(false);
+      }
       console.log('upload result...', result);
-      const signedURL = await Storage.get(result.key);
-      const loggedUser = await Auth.currentAuthenticatedUser();
-      await Auth.updateUserAttributes(loggedUser, { 'picture': signedURL });
     } catch (error) {
       console.log('Error uploading file: ', error);
     }
   }
 
   return (
-    <> {user ? (
+    <> {user?.username ? (
       <div className="App">
         <Container>
           <Row className="justify-content-md-center">
             <Col sm={4}>
               <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src={picture} />
+                <Card.Img variant="top" src={picture || user.attributes.picture} />
                 <Card.Body>
                   <Card.Title>Hello, {user.username}</Card.Title>
                   <Card.Text>
@@ -93,6 +102,10 @@ function App() {
               <InputGroup className='mt-3'>
                 <Button variant="outline-success" onClick={uploadPic}>Upload</Button>
               </InputGroup>
+              {upload === true &&
+                <div className='mt-3'>
+                  <ProgressBar animated now={upPercent} striped label={`${upPercent}%`} />
+                </div>}
             </Col>
           </Row>
         </Container>
