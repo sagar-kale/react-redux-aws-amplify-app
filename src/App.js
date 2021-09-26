@@ -20,10 +20,11 @@ function App() {
       try {
         const usr = await Auth.currentUserInfo();
         if (usr) {
-          const signedURL = await Storage.get('profilePic.jpg', { level: 'private', identityId: usr.id });
+          Storage.get('profilePic.jpg', { level: 'private', identityId: usr.id })
+            .then(signedUrl => setPicture(signedUrl))
+            .catch(err => console.log('error fetching profilepic', err));
           setUser(usr);
           console.log('uuuuuuu..', usr.attributes);
-          setPicture(signedURL);
         }
       } catch (e) { console.log('cuurent usr', e); }
 
