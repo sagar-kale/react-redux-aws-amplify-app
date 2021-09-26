@@ -85,10 +85,10 @@ function App() {
       <div className="App App-header">
         <Container className='mt-3 section'>
           <Row className="justify-content-md-center">
-            <Col sm={4}>
-              <Card 
-              bg='info'
-              style={{ width: '18rem' }}
+            <Col sm={12} lg={4}>
+              <Card
+                bg='info'
+                style={{ width: '18rem' }}
               >
                 <Card.Img variant="top" src={picture || user.attributes.picture} />
                 <Card.Body>
@@ -101,7 +101,7 @@ function App() {
                 </Card.Body>
               </Card>
             </Col>
-            <Col sm={4}>
+            <Col lg={4} sm={12}>
               <Form.Group controlId="formFile" className="mt-5">
                 <Form.Label>Upload Image</Form.Label>
                 <Form.Control type="file" onChange={handleImageChange} />
