@@ -1,8 +1,4 @@
 
-
-// const accountSid = 'ACed08cfa6701098c2bb95dafb12dd31c7'
-// const authToken = '929fd799acedf803b559b05c5ca4ddae';
-// const client = require('twilio')(accountSid, authToken)
 const { SNSClient, PublishCommand, SetSMSAttributesCommand } = require('@aws-sdk/client-sns');
 
 
